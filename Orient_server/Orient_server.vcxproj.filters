@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Library">
+      <UniqueIdentifier>{dee5ef42-1798-451d-82aa-3e19cc7227da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\OpenSocket">
+      <UniqueIdentifier>{f2f3c78a-7fbd-49c9-9734-a135d18f1b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library">
+      <UniqueIdentifier>{a029d921-e375-41fb-b279-9f9141f90881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\OpenSocket">
+      <UniqueIdentifier>{c7205ab1-b60e-4038-b2df-dd105bbb4b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Library\FileController">
+      <UniqueIdentifier>{000065ae-4aa0-431f-9f59-6d298f972a13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\FileController">
+      <UniqueIdentifier>{c53e19e9-c56f-4807-918d-65759dcc2e3a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Orient_server.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\BaseClient.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\BaseRoutine.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\BaseServer.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\BaseSocket.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenSocket\src\sample.cpp">
+      <Filter>ソース ファイル\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\FileController\FileController.cpp">
+      <Filter>ソース ファイル\Library\FileController</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Library\OpenSocket\BaseClient.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\BaseRoutine.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\BaseServer.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\BaseSocket.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\OpenSocket.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\OpenSocket_Def.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\OpenSocket_STD.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\FileController\FileController.h">
+      <Filter>ヘッダー ファイル\Library\FileController</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
