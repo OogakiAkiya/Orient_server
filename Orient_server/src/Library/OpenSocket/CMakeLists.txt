@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.16)
+add_library(
+  OpenSocket
+  STATIC
+  BaseClient.cpp
+  BaseRoutine.cpp
+  BaseServer.cpp
+  BaseSocket.cpp 
+)

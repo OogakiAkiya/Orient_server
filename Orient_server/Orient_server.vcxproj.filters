@@ -48,9 +48,6 @@
     <ClCompile Include="src\Library\OpenSocket\BaseSocket.cpp">
       <Filter>ソース ファイル\Library\OpenSocket</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenSocket\src\sample.cpp">
-      <Filter>ソース ファイル\Library</Filter>
-    </ClCompile>
     <ClCompile Include="src\Library\FileController\FileController.cpp">
       <Filter>ソース ファイル\Library\FileController</Filter>
     </ClCompile>

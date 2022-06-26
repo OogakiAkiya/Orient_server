@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\OpenSocket\src\sample.cpp" />
     <ClCompile Include="Orient_server.cpp" />
     <ClCompile Include="src\Library\FileController\FileController.cpp" />
     <ClCompile Include="src\Library\OpenSocket\BaseClient.cpp" />

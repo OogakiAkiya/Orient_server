@@ -26,19 +26,20 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 
 	//受信データ処理
 	while (_server->GetRecvDataSize() > 0) {
-			auto recvData = _server->GetRecvData();
-			unsigned int sequence;
-			std::memcpy(&sequence, &recvData.second[0], sizeof(unsigned int));
-			std::cout << "【UDP】DataRecv:sequence=" << sequence << "\n";
-
-			int sendDataSize = _server->SendOnlyClient(&recvData.first, &recvData.second[sizeof(unsigned int)], recvData.second.size() - sizeof(unsigned int));
-			std::cout << "【UDP】destport=" << recvData.first.sin_port << "DataSend:size=" << sendDataSize << "\n";
+		auto recvData = _server->GetRecvData();
+		unsigned int sequence;
+		std::memcpy(&sequence, &recvData.second[0], sizeof(unsigned int));
+		std::cout << "【UDP】DataRecv:sequence=" << sequence << "\n";
+		
+		int sendDataSize = _server->SendOnlyClient(&recvData.first, &recvData.second[sizeof(unsigned int)], recvData.second.size() - sizeof(unsigned int));
+		std::cout << "【UDP】destport=" << recvData.first.sin_port << "DataSend:size=" << sendDataSize << "\n";
 	}
 }
 
 
 int main()
 {
+	/*
 	FileContrller* fileController = FileContrller::GetInstance();
 	int count = 0;
 	while (true) {
@@ -46,15 +47,15 @@ int main()
 		fileController->Write("error.log", msg);
 		if (count > 10) break;
 	}
+	*/
 
 
-
-	/*
+	
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "12345", IPV4, true);
 	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "12344", IPV4, true);
 	while (1) {
 		TcpUpdate(tcpServer);
 		UdpUpdate(udpServer);
 	}
-	*/
+	
 }
