@@ -20,7 +20,25 @@ void TCP_Routine::Update(const std::shared_ptr<BaseSocket> _socket, std::vector<
 
 		while (_recvData.size() > sizeof(int)) {
 			int dataSize;
-			memcpy(&dataSize, &_recvData[0], sizeof(int));
+			try {
+				//先頭パケットの解析
+				memcpy(&dataSize, &_recvData[0], sizeof(int));
+
+				//先頭パケットが想定しているよりも小さいまたは大きいパケットの場合は不正パケットとして解釈する。
+				if (dataSize < 0 || dataSize > RECVPACKETMAXSIZE) {
+					//TODO:不正パケットとみなした場合パケットをすべて削除しているが何かいい手がないか考える
+					_recvData.clear();
+					return;
+				}
+			}
+			catch (std::exception e) {
+				std::cerr << "Exception Error at TCP_Routine::Update():" << e.what() << std::endl;
+
+				//TODO:不正パケットなどで先頭データがintでmemcpyできなかった際はパケットをすべて削除しているが何かいい手がないか考える
+				_recvData.clear();
+				return;
+			}
+
 
 			//受信データが一塊分あればキューに追加
 			if (_recvData.size() > dataSize) {
@@ -34,17 +52,17 @@ void TCP_Routine::Update(const std::shared_ptr<BaseSocket> _socket, std::vector<
 	}
 	else if (dataSize == 0) {
 		//接続を終了するとき
-		printf("切断されました\n");
+		std::cout << "connection is lost" << std::endl;
 	}
 #ifdef _MSC_VER
-	else if (WSAGetLastError() == 10035) {
+	else if (WSAGetLastError() == WSAEWOULDBLOCK) {
 		//clientがsendしていなかったときにおこるエラー(returnで良いかも)
 	}
 #endif
 	else {
 #ifdef _MSC_VER
 		//接続エラーが起こった時
-		printf("recv failed:%d\n%d", WSAGetLastError(), dataSize);
+		std::cerr << "recv failed:" << WSAGetLastError() << std::endl;
 #else
 		if (errno == EAGAIN)
 		{
@@ -53,7 +71,8 @@ void TCP_Routine::Update(const std::shared_ptr<BaseSocket> _socket, std::vector<
 		}
 
 		//接続エラーが起こった時
-		printf("recv failed\n");
+		std::cerr << "recv failed" << std::endl;
+
 #endif
 
 	}
@@ -67,6 +86,7 @@ void TCP_Routine::Update(std::vector<std::shared_ptr<BaseSocket>>& _clientList, 
 		char buf[TCP_BUFFERSIZE];
 		int socket = _clientList.at(i)->GetSocket();
 
+		//データを受信した際はそのバイト数が切断された場合は0,ノンブロッキングモードでデータを受信してない間は-1がdataSizeに入る
 		int dataSize = _clientList.at(i)->Recv(buf, TCP_BUFFERSIZE);
 
 		if (dataSize > 0) {
@@ -77,13 +97,24 @@ void TCP_Routine::Update(std::vector<std::shared_ptr<BaseSocket>>& _clientList, 
 			memcpy((char*)&_recvDataMap[socket][nowSize], &buf[0], dataSize);
 
 			while (_recvDataMap[socket].size() > sizeof(int)) {
+
 				int dataSize=0;
-#ifdef _MSC_VER
-				//ここのキャストunixも同じキャストでよさそう
-				memcpy(&dataSize, &_recvDataMap[(B_SOCKET)socket][0], sizeof(int));
-#else
-				memcpy(&dataSize, &_recvDataMap.at(socket)[0], sizeof(int));
-#endif
+				try {
+					memcpy(&dataSize, &_recvDataMap[(B_SOCKET)socket][0], sizeof(int));
+
+					//先頭パケットが想定しているよりも小さいまたは大きいパケットの場合は不正パケットとして解釈する。
+					if (dataSize < 0 || dataSize > RECVPACKETMAXSIZE) {
+						//TODO:不正パケットとみなした場合パケットをすべて削除しているが何かいい手がないか考える
+						_recvDataMap[(B_SOCKET)socket].clear();
+					}
+				}
+				catch (std::exception e) {
+					std::cerr << "Exception Error at TCP_Routine::Update():" << e.what() << std::endl;
+
+					//TODO:不正パケットなどで先頭データがintでmemcpyできなかった際はパケットをすべて削除しているが何かいい手がないか考える
+					_recvDataMap[(B_SOCKET)socket].clear();
+					return;
+				}
 
 				//受信データが一塊分あればキューリストに追加
 				if (_recvDataMap[socket].size() > dataSize) {
@@ -99,11 +130,11 @@ void TCP_Routine::Update(std::vector<std::shared_ptr<BaseSocket>>& _clientList, 
 		}
 		else if (dataSize == 0) {
 			//接続を終了するとき
-			printf("切断されました\n");
+			std::cout << "connection is lost" << std::endl;
 			deleteList.push_back(i);
 		}
 #ifdef _MSC_VER
-		else if (WSAGetLastError() == 10035) {
+		else if (WSAGetLastError() == WSAEWOULDBLOCK) {
 			//clientがsendしていなかったときにおこるエラー
 		}
 #endif
@@ -111,12 +142,13 @@ void TCP_Routine::Update(std::vector<std::shared_ptr<BaseSocket>>& _clientList, 
 #ifdef _MSC_VER
 
 			//接続エラーが起こった時
-			printf("recv failed:%d\n%d", WSAGetLastError(), dataSize);
+			std::cerr << "recv failed:" << WSAGetLastError() << std::endl;
 			deleteList.push_back(i);
 #else
+			//errnoはシステムコールや標準ライブラリのエラーが格納される変数
 			if (errno == EAGAIN)
 			{
-				//非同期だとここを基本は通る
+				//非同期だとここを通ることがあるが無視して良い
 				break;
 			}
 
@@ -126,12 +158,12 @@ void TCP_Routine::Update(std::vector<std::shared_ptr<BaseSocket>>& _clientList, 
 			if (errno == ECONNRESET)
 			{
 				//クライアント接続リセット
-				printf("切断されました\n");
+				std::cout << "connection is lost" << std::endl;
 				deleteList.push_back(i);
 				break;
 			}
 			//接続エラーが起こった時
-			printf("recv failed=%d\n", errno);
+			std::cerr << "recv failed:" << errno << std::endl;
 			deleteList.push_back(i);
 #endif
 

@@ -2,9 +2,12 @@
 //
 
 #include <iostream>
-
+#include <vector>
+#include <map>
+#include <memory>
+#include "src/Library/TimeStamp/Timestamp.h"
 #include "src/Library/FileController/FileController.h"
-#include"src/Library/OpenSocket/OpenSocket.h"
+#include "src/Library/OpenSocket/OpenSocket.h"
 
 using namespace std;
 
@@ -38,17 +41,14 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 
 
 int main()
-{
-	/*
-	FileContrller* fileController = FileContrller::GetInstance();
+{	/*
 	int count = 0;
 	while (true) {
-		string msg = "test" + to_string(count++);
-		fileController->Write("error.log", msg);
-		if (count > 10) break;
+		string msg = "[" + TIMESTAMP.GetNowTime() + "]" + "test" + to_string(count++);
+		FILE_CONTROLLER.Write("error.log", msg);
+		if (count > 100000) break;
 	}
 	*/
-
 
 	
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "12345", IPV4, true);

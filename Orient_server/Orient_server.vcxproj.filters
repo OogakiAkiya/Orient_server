@@ -31,6 +31,12 @@
     <Filter Include="ヘッダー ファイル\Library\FileController">
       <UniqueIdentifier>{c53e19e9-c56f-4807-918d-65759dcc2e3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Library\Timestamp">
+      <UniqueIdentifier>{6ba15243-94fe-481d-a675-97cc1f2064f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\Timestamp">
+      <UniqueIdentifier>{77173608-6cf9-4d95-863b-a3a2baf205cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Orient_server.cpp">
@@ -50,6 +56,9 @@
     </ClCompile>
     <ClCompile Include="src\Library\FileController\FileController.cpp">
       <Filter>ソース ファイル\Library\FileController</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\Timestamp\Timestamp.cpp">
+      <Filter>ソース ファイル\Library\Timestamp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="src\Library\FileController\FileController.h">
       <Filter>ヘッダー ファイル\Library\FileController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\Timestamp\Timestamp.h">
+      <Filter>ヘッダー ファイル\Library\Timestamp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

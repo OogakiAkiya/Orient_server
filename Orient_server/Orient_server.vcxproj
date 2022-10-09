@@ -145,6 +145,7 @@
     <ClCompile Include="src\Library\OpenSocket\BaseRoutine.cpp" />
     <ClCompile Include="src\Library\OpenSocket\BaseServer.cpp" />
     <ClCompile Include="src\Library\OpenSocket\BaseSocket.cpp" />
+    <ClCompile Include="src\Library\Timestamp\Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Library\FileController\FileController.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="src\Library\OpenSocket\OpenSocket.h" />
     <ClInclude Include="src\Library\OpenSocket\OpenSocket_Def.h" />
     <ClInclude Include="src\Library\OpenSocket\OpenSocket_STD.h" />
+    <ClInclude Include="src\Library\Timestamp\Timestamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

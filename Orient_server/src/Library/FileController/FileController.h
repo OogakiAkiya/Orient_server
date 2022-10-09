@@ -1,16 +1,17 @@
 #ifndef FILECONTROLLER_h
 #define FILECONTROLLERT_h
 
-class FileContrller {
+class FileController {
 public:
-	static FileContrller* GetInstance();
-	static void Write(std::string _fileName, std::string _message);
+	static FileController& GetInstance();
+	void Write(std::string _fileName, std::string _message);
 
 private:
-	static FileContrller* fileController;
-	FileContrller();
-	~FileContrller();
+	static FileController* fileController;
+	std::map<std::string, std::ofstream> fileList;
+	FileController();
+	~FileController();
 
 };
-
+#define FILE_CONTROLLER FileController::GetInstance()
 #endif
