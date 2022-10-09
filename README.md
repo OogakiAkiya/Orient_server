@@ -6,21 +6,23 @@ gcc (GCC) 7.3.1 20180712 (Red Hat 7.3.1-15)
 
 
 ##Amazonlinux2での環境構築
-$ sudo yum groupinstall "Development Tools" or $yum install gcc gcc-c++
-$ yum install cmake3
+```sh
+# sudo yum groupinstall "Development Tools" or $yum install gcc gcc-c++
+# yum install cmake3
+```
 
 ## build(amazon linux 2)
 ```sh
-$ cmake3 -S . -B build
-$ cmake3 --build build
-$ ./build/Orient_server.out
+# cmake3 -S . -B build
+# cmake3 --build build
+# ./build/Orient_server.out
 ```
 
 ## build(wsl)
 ```sh
-$ cmake -S . -B build
-$ cmake --build build
-$ ./build/Orient_server.out
+# cmake -S . -B build
+# cmake --build build
+# ./build/Orient_server.out
 ```
 
 ※windowsマシーン上でテストする際の注意点
@@ -28,5 +30,5 @@ wsl2上でserverを実行しclient側をwindowsで動作させるとudpの通信
 windowsでnetstatで確認すると解放されていないのがわかる
 対策として以下コマンドよりwsl2のipを確認し確認できたipをclientで指定する
 ```sh
-$ ip a show dev eth0
+# ip a show dev eth0
 ```
