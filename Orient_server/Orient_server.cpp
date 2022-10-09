@@ -5,7 +5,7 @@
 #include <vector>
 #include <map>
 #include <memory>
-#include "src/Library/TimeStamp/Timestamp.h"
+#include "src/Library/Timestamp/Timestamp.h"
 #include "src/Library/FileController/FileController.h"
 #include "src/Library/OpenSocket/OpenSocket.h"
 
@@ -51,8 +51,8 @@ int main()
 	*/
 
 	
-	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "12345", IPV4, true);
-	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "12344", IPV4, true);
+	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, true);
+	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, true);
 	while (1) {
 		TcpUpdate(tcpServer);
 		UdpUpdate(udpServer);

@@ -1,4 +1,15 @@
 # Orient_server
+
+##ビルド環境
+# cmake3 --version
+cmake3 version 3.13.1
+# gcc --version
+gcc (GCC) 7.3.1 20180712 (Red Hat 7.3.1-15)
+
+
+##Amazonlinux2での環境構築
+$ sudo yum groupinstall "Development Tools" or $yum install gcc gcc-c++
+$ yum install cmake3
 ## build
 ./src/sample.cppのコメントアウトを外しserverとclientそれぞれでbuildを実施し実行ファイルを作成する
 
