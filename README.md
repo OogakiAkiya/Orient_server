@@ -1,11 +1,11 @@
 # Orient_server
 
-##ビルド環境
+## ビルド環境
 cmake3 version 3.13.1
 gcc (GCC) 7.3.1 20180712 (Red Hat 7.3.1-15)
 
 
-##Amazonlinux2での環境構築
+## Amazonlinux2での環境構築
 ```sh
 # sudo yum groupinstall "Development Tools" or $yum install gcc gcc-c++
 # yum install cmake3
@@ -32,3 +32,7 @@ windowsでnetstatで確認すると解放されていないのがわかる
 ```sh
 # ip a show dev eth0
 ```
+
+## cmakeの決まり事
+Library以下のディレクトリ名と各種ライブラリ以下のCMakeList.txtのターゲット名は同一にしておく必要がある
+
