@@ -37,22 +37,16 @@
     <Filter Include="ヘッダー ファイル\Library\Timestamp">
       <UniqueIdentifier>{77173608-6cf9-4d95-863b-a3a2baf205cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Library\OpenSocket\base">
+      <UniqueIdentifier>{7e8cd39e-7791-44fb-888a-3ed6552a0405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\OpenSocket\base">
+      <UniqueIdentifier>{3417a991-c920-412f-923e-cca80241cca5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Orient_server.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\BaseClient.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\BaseRoutine.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\BaseServer.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\BaseSocket.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
     </ClCompile>
     <ClCompile Include="src\Library\FileController\FileController.cpp">
       <Filter>ソース ファイル\Library\FileController</Filter>
@@ -60,20 +54,38 @@
     <ClCompile Include="src\Library\Timestamp\Timestamp.cpp">
       <Filter>ソース ファイル\Library\Timestamp</Filter>
     </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\base\BaseClient.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\base\BaseRoutine.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\base\BaseServer.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\base\BaseSocket.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\TCP_Client.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\TCP_Routine.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\TCP_Server.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\UDP_Client.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\UDP_Routine.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\UDP_Server.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Library\OpenSocket\BaseClient.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\BaseRoutine.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\BaseServer.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\BaseSocket.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
     <ClInclude Include="src\Library\OpenSocket\OpenSocket.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
     </ClInclude>
@@ -88,6 +100,36 @@
     </ClInclude>
     <ClInclude Include="src\Library\Timestamp\Timestamp.h">
       <Filter>ヘッダー ファイル\Library\Timestamp</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\base\BaseSocket.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\base\BaseClient.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\base\BaseRoutine.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\base\BaseServer.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\TCP_Client.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\TCP_Routine.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\TCP_Server.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\UDP_Client.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\UDP_Routine.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\UDP_Server.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

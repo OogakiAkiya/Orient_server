@@ -141,21 +141,33 @@
   <ItemGroup>
     <ClCompile Include="Orient_server.cpp" />
     <ClCompile Include="src\Library\FileController\FileController.cpp" />
-    <ClCompile Include="src\Library\OpenSocket\BaseClient.cpp" />
-    <ClCompile Include="src\Library\OpenSocket\BaseRoutine.cpp" />
-    <ClCompile Include="src\Library\OpenSocket\BaseServer.cpp" />
-    <ClCompile Include="src\Library\OpenSocket\BaseSocket.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\base\BaseClient.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\base\BaseRoutine.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\base\BaseServer.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\base\BaseSocket.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\TCP_Client.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\TCP_Routine.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\TCP_Server.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\UDP_Client.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\UDP_Routine.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\UDP_Server.cpp" />
     <ClCompile Include="src\Library\Timestamp\Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Library\FileController\FileController.h" />
-    <ClInclude Include="src\Library\OpenSocket\BaseClient.h" />
-    <ClInclude Include="src\Library\OpenSocket\BaseRoutine.h" />
-    <ClInclude Include="src\Library\OpenSocket\BaseServer.h" />
-    <ClInclude Include="src\Library\OpenSocket\BaseSocket.h" />
+    <ClInclude Include="src\Library\OpenSocket\base\BaseClient.h" />
+    <ClInclude Include="src\Library\OpenSocket\base\BaseRoutine.h" />
+    <ClInclude Include="src\Library\OpenSocket\base\BaseServer.h" />
+    <ClInclude Include="src\Library\OpenSocket\base\BaseSocket.h" />
     <ClInclude Include="src\Library\OpenSocket\OpenSocket.h" />
     <ClInclude Include="src\Library\OpenSocket\OpenSocket_Def.h" />
     <ClInclude Include="src\Library\OpenSocket\OpenSocket_STD.h" />
+    <ClInclude Include="src\Library\OpenSocket\TCP_Client.h" />
+    <ClInclude Include="src\Library\OpenSocket\TCP_Routine.h" />
+    <ClInclude Include="src\Library\OpenSocket\TCP_Server.h" />
+    <ClInclude Include="src\Library\OpenSocket\UDP_Client.h" />
+    <ClInclude Include="src\Library\OpenSocket\UDP_Routine.h" />
+    <ClInclude Include="src\Library\OpenSocket\UDP_Server.h" />
     <ClInclude Include="src\Library\Timestamp\Timestamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
