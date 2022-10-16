@@ -36,3 +36,5 @@ windowsでnetstatで確認すると解放されていないのがわかる
 ## cmakeの決まり事
 Library以下のディレクトリ名と各種ライブラリ以下のCMakeList.txtのターゲット名は同一にしておく必要がある
 
+## パケット図
+![TCP Base packet image](readme_img/tcp_basepacket.png)
