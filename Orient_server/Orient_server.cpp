@@ -18,7 +18,7 @@ void TcpUpdate(const shared_ptr<TCP_Server> _server) {
 	while (_server->GetRecvDataSize() > 0) {
 		auto recvData = _server->GetRecvData();
 		int data = *(int*)&recvData.second[sizeof(char) + sizeof(char) + sizeof(int)];
-		std::cout << "【TCP】DataRecv:size" << recvData.second.size() << ",data:" << data << "\n";
+		std::cout << "【TCP】DataRecv:size" << recvData.second.size() << ",data:" << data << std::endl;
 
 		int sendDataSize = _server->SendOnlyClient(recvData.first, &recvData.second[0], recvData.second.size());
 	}
@@ -32,10 +32,10 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 		auto recvData = _server->GetRecvData();
 		unsigned int sequence;
 		std::memcpy(&sequence, &recvData.second[0], sizeof(unsigned int));
-		std::cout << "【UDP】DataRecv:sequence=" << sequence << "\n";
+		std::cout << "【UDP】DataRecv:sequence=" << sequence << std::endl;
 		
 		int sendDataSize = _server->SendOnlyClient(&recvData.first, &recvData.second[sizeof(unsigned int)], recvData.second.size() - sizeof(unsigned int));
-		std::cout << "【UDP】destport=" << recvData.first.sin_port << "DataSend:size=" << sendDataSize << "\n";
+		std::cout << "【UDP】destport=" << recvData.first.sin_port << "DataSend:size=" << sendDataSize << std::endl;
 	}
 }
 
