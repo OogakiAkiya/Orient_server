@@ -13,15 +13,25 @@ foreach(ITEM ${LIBRARY_PAS_LIST})
    add_subdirectory(${ITEM})
 endforeach()
 
-#実行ファイルの追加
-add_executable(Orient_server.out ${PROJECT_SOURCE_DIR}/Orient_server/Orient_server.cpp)
-
-
 #ライブラリのディレクトリ名取得
 file(GLOB LIBRARY_LIST RELATIVE "${CMAKE_SOURCE_DIR}/Orient_server/src/Library/" "Orient_server/src/Library/*")
 
-#ライブラリのリンク設定
-target_link_libraries(
-    Orient_server.out 
-    ${LIBRARY_LIST}
-)
+#boostのパッケージ検索
+set(Boost_USE_STATIC_LIBS ON) 
+set(Boost_USE_MULTITHREADED ON)  
+find_package(Boost 1.81.0 COMPONENTS system) 
+
+if(Boost_FOUND)
+   #boostインクルード
+   include_directories(${Boost_INCLUDE_DIRS}) 
+   
+   #実行ファイルの設定追加
+   add_executable(Orient_server.out ${PROJECT_SOURCE_DIR}/Orient_server/Orient_server.cpp)
+   
+   #ライブラリのリンク設定
+   target_link_libraries(
+      Orient_server.out
+      ${LIBRARY_LIST}
+      ${Boost_LIBRARIES}
+   )
+endif()

@@ -8,6 +8,11 @@
 #include "src/Library/Timestamp/Timestamp.h"
 #include "src/Library/FileController/FileController.h"
 #include "src/Library/OpenSocket/OpenSocket.h"
+#ifdef _MSC_VER
+#else
+#include <boost/version.hpp>
+#endif
+
 
 using namespace std;
 
@@ -41,7 +46,13 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 
 
 int main()
-{	/*
+{	
+#ifdef _MSC_VER
+#else
+
+	cout << BOOST_VERSION << endl;
+#endif
+	/*
 	int count = 0;
 	while (true) {
 		string msg = "[" + TIMESTAMP.GetNowTime() + "]" + "test" + to_string(count++);
@@ -50,12 +61,13 @@ int main()
 	}
 	*/
 
-	
+	/*
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, true);
 	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, true);
 	while (1) {
 		TcpUpdate(tcpServer);
 		UdpUpdate(udpServer);
 	}
+	*/
 	
 }
