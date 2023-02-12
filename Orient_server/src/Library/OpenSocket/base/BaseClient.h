@@ -11,7 +11,6 @@ public:
 
 protected:
 	std::shared_ptr<BaseSocket> m_socket;
-	std::shared_ptr<BaseRoutine> m_routine;
 	static void SwitchIpv(std::shared_ptr<BaseSocket> _socket, int _ipv);
 	std::queue<std::vector<char>> recvDataQueList;										//サーバーから受信した情報が入る
 

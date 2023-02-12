@@ -61,13 +61,13 @@ int main()
 	}
 	*/
 
-	/*
+	
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, true);
 	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, true);
 	while (1) {
 		TcpUpdate(tcpServer);
 		UdpUpdate(udpServer);
 	}
-	*/
+	
 	
 }

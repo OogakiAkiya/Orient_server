@@ -43,6 +43,12 @@
     <Filter Include="ヘッダー ファイル\Library\OpenSocket\base">
       <UniqueIdentifier>{3417a991-c920-412f-923e-cca80241cca5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Library\LogController">
+      <UniqueIdentifier>{ac856c45-8ff8-4dc3-9a82-00ec1775fdc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Library\LogController">
+      <UniqueIdentifier>{af6412cb-9f8a-477f-8311-c931eba26d24}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Orient_server.cpp">
@@ -57,9 +63,6 @@
     <ClCompile Include="src\Library\OpenSocket\base\BaseClient.cpp">
       <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
     </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\base\BaseRoutine.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
-    </ClCompile>
     <ClCompile Include="src\Library\OpenSocket\base\BaseServer.cpp">
       <Filter>ソース ファイル\Library\OpenSocket\base</Filter>
     </ClCompile>
@@ -69,20 +72,17 @@
     <ClCompile Include="src\Library\OpenSocket\TCP_Client.cpp">
       <Filter>ソース ファイル\Library\OpenSocket</Filter>
     </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\TCP_Routine.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
-    </ClCompile>
     <ClCompile Include="src\Library\OpenSocket\TCP_Server.cpp">
       <Filter>ソース ファイル\Library\OpenSocket</Filter>
     </ClCompile>
     <ClCompile Include="src\Library\OpenSocket\UDP_Client.cpp">
       <Filter>ソース ファイル\Library\OpenSocket</Filter>
     </ClCompile>
-    <ClCompile Include="src\Library\OpenSocket\UDP_Routine.cpp">
-      <Filter>ソース ファイル\Library\OpenSocket</Filter>
-    </ClCompile>
     <ClCompile Include="src\Library\OpenSocket\UDP_Server.cpp">
       <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Library\LogController\LogController.cpp">
+      <Filter>ソース ファイル\Library\LogController</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,16 +107,10 @@
     <ClInclude Include="src\Library\OpenSocket\base\BaseClient.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
     </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\base\BaseRoutine.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
-    </ClInclude>
     <ClInclude Include="src\Library\OpenSocket\base\BaseServer.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket\base</Filter>
     </ClInclude>
     <ClInclude Include="src\Library\OpenSocket\TCP_Client.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\TCP_Routine.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
     </ClInclude>
     <ClInclude Include="src\Library\OpenSocket\TCP_Server.h">
@@ -125,11 +119,11 @@
     <ClInclude Include="src\Library\OpenSocket\UDP_Client.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
     </ClInclude>
-    <ClInclude Include="src\Library\OpenSocket\UDP_Routine.h">
-      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
-    </ClInclude>
     <ClInclude Include="src\Library\OpenSocket\UDP_Server.h">
       <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\LogController\LogController.h">
+      <Filter>ヘッダー ファイル\Library\LogController</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
