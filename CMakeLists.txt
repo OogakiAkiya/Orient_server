@@ -4,6 +4,9 @@ cmake_minimum_required(VERSION 3.13)
 # プロジェクト名と使用する言語を設定
 project(Orient_Server)
 
+#C++バージョン指定
+add_definitions( -std=c++11 -Wall )
+
 #Libraryパス一覧取得
 file(GLOB LIBRARY_PAS_LIST RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "Orient_server/src/Library/*")
 
