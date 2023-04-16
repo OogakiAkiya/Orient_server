@@ -84,6 +84,9 @@
     <ClCompile Include="src\Library\LogController\LogController.cpp">
       <Filter>ソース ファイル\Library\LogController</Filter>
     </ClCompile>
+    <ClCompile Include="src\Library\OpenSocket\Utility.cpp">
+      <Filter>ソース ファイル\Library\OpenSocket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Library\OpenSocket\OpenSocket.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="src\Library\LogController\LogController.h">
       <Filter>ヘッダー ファイル\Library\LogController</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Library\OpenSocket\Utility.h">
+      <Filter>ヘッダー ファイル\Library\OpenSocket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

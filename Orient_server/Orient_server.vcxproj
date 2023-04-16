@@ -149,6 +149,7 @@
     <ClCompile Include="src\Library\OpenSocket\TCP_Server.cpp" />
     <ClCompile Include="src\Library\OpenSocket\UDP_Client.cpp" />
     <ClCompile Include="src\Library\OpenSocket\UDP_Server.cpp" />
+    <ClCompile Include="src\Library\OpenSocket\Utility.cpp" />
     <ClCompile Include="src\Library\Timestamp\Timestamp.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="src\Library\OpenSocket\TCP_Server.h" />
     <ClInclude Include="src\Library\OpenSocket\UDP_Client.h" />
     <ClInclude Include="src\Library\OpenSocket\UDP_Server.h" />
+    <ClInclude Include="src\Library\OpenSocket\Utility.h" />
     <ClInclude Include="src\Library\Timestamp\Timestamp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

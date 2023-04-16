@@ -86,9 +86,15 @@ void UDP_Server::DataProcessing()
 	std::pair<B_ADDRESS_IN, std::vector<char>> addData;
 	char buf[TCP_BUFFERSIZE];
 
+	//ファイルディスクリプタが設定されておりビットフラグが立っていない場合抜けるようにする
+	if (fds != nullptr) {
+		if (!FD_ISSET(m_socket->GetSocket(), fds)) {
+			return;
+		}
+	}
+
 	//受信処理
 	int dataSize = m_socket->Recvfrom(&addData.first, &buf[0], TCP_BUFFERSIZE, 0);
-
 	if (dataSize > 0) {
 		addData.second.resize(dataSize);
 		memcpy(&addData.second[0], &buf[0], dataSize);

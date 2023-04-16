@@ -1,10 +1,14 @@
 ﻿// Orient_server.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
+#define NOMINMAX
 
 #include <iostream>
 #include <vector>
 #include <map>
 #include <memory>
+#include <cassert>
+#include <algorithm>
+#include <functional>
 #include "src/Library/Timestamp/Timestamp.h"
 #include "src/Library/FileController/FileController.h"
 #include "src/Library/OpenSocket/OpenSocket.h"
@@ -62,19 +66,19 @@ int main()
 	*/
 	fd_set readfds;
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, false);
-	//auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, false);
+	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, false);
 
 	while (1) {
 		FD_ZERO(&readfds);
-		int maxfds= tcpServer->GetFileDescriptor(&readfds);
-		//udpServer->GetFileDescriptor(&readfds);
-
+		int maxfds = std::max(tcpServer->GetFileDescriptor(&readfds),udpServer->GetFileDescriptor(&readfds));
+		//int maxfds = udpServer->GetFileDescriptor(&readfds);
 		//ソケットの設定で非同期設定を有効にしていない場合ここでブロッキングされる(readfdsを渡しているがここはクラス側へsetするなどして階層的にデータを渡さなくても良いようにしたい)
 		OpenSocket_Select(&readfds,maxfds);
 
 		tcpServer->SetFileDescriptorPointer(&readfds);
+		udpServer->SetFileDescriptorPointer(&readfds);
 		TcpUpdate(tcpServer);
-		//UdpUpdate(udpServer);
+		UdpUpdate(udpServer);
 	}
 	
 	
