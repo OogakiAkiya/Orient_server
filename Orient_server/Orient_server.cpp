@@ -18,10 +18,10 @@ using namespace std;
 
 void TcpUpdate(const shared_ptr<TCP_Server> _server) {
 	_server->Update();
-
+	
 	//受信データ処理
 	while (_server->GetRecvDataSize() > 0) {
-		auto recvData = _server->GetRecvData();
+		std::pair<int, std::vector<char>> recvData = _server->GetRecvData();
 		int data = *(int*)&recvData.second[sizeof(char) + sizeof(char) + sizeof(int)];
 		std::cout << "【TCP】DataRecv:size" << recvData.second.size() << ",data:" << data << std::endl;
 
@@ -34,7 +34,7 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 
 	//受信データ処理
 	while (_server->GetRecvDataSize() > 0) {
-		auto recvData = _server->GetRecvData();
+		std::pair<B_ADDRESS_IN, std::vector<char>> recvData = _server->GetRecvData();
 		unsigned int sequence;
 		std::memcpy(&sequence, &recvData.second[0], sizeof(unsigned int));
 		std::cout << "【UDP】DataRecv:sequence=" << sequence << std::endl;
@@ -60,13 +60,21 @@ int main()
 		if (count > 100000) break;
 	}
 	*/
-
-	
+	fd_set readfds;
 	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, true);
-	auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, true);
+	//auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, false);
+
 	while (1) {
+		FD_ZERO(&readfds);
+		tcpServer->GetFileDescriptor(&readfds);
+		//udpServer->GetFileDescriptor(&readfds);
+
+		//ソケットの設定で非同期設定を有効にしていない場合ここでブロッキングされる(readfdsを渡しているがここはクラス側へsetするなどして階層的にデータを渡さなくても良いようにしたい)
+		OpenSocket_Select(&readfds);
+
+		tcpServer->SetFileDescriptorPointer(&readfds);
 		TcpUpdate(tcpServer);
-		UdpUpdate(udpServer);
+		//UdpUpdate(udpServer);
 	}
 	
 	

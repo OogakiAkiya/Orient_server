@@ -1,5 +1,6 @@
 #include"OpenSocket_STD.h"
 #include"OpenSocket_Def.h"
+#include"Utility.h"
 #include"base/BaseSocket.h"
 #include"base/BaseClient.h"
 #include"base/BaseServer.h"

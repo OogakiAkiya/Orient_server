@@ -46,7 +46,7 @@ int UDP_Server::SendOnlyClient(const B_ADDRESS_IN* _addr, const char* _buf, cons
 		sequence++;
 		if (sequence > SEQUENCEMAX) { sequence = 0; }
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at UDP_Server::SendOnlyClient():" << e.what() << std::endl;
 		return sendDataSize;
 	}
@@ -73,7 +73,7 @@ int UDP_Server::SendMultiClient(const std::vector<B_ADDRESS_IN> _addrList, const
 		sequence++;
 		if (sequence > SEQUENCEMAX) { sequence = 0; }
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at UDP_Server::SendMultiClient():" << e.what() << std::endl;
 		return 0;
 	}

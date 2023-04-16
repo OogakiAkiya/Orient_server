@@ -13,13 +13,14 @@ public:
 	);
 	virtual void Update() override;
 	virtual int GetRecvDataSize() override;
+	virtual void GetFileDescriptor(fd_set* _fds) override;
 	std::pair<int, std::vector<char>> GetRecvData();													//クライアントから受信したデータを取り出す
 
 	int SendOnlyClient(const int _socket, const char* _buf, const int _bufSize);						//特定のクライアントに送信する場合使用する
 	int SendAllClient(const char* _buf, const int _bufSize);											//全てのクライアントに送信する場合使用する
-
 private:
 	//メンバ関数
+	void AcceptProcessing();
 	void DataProcessing();
 
 	//メンバ変数

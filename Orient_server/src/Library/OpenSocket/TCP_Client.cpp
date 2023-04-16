@@ -49,7 +49,7 @@ int TCP_Client::SendServer(const char* _buf, const int _bufSize)
 		//送信
 		sendDataSize = m_socket->Send(sendBuf, _bufSize + TCP_HEADERSIZE + ENDMARKERSIZE);
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at TCP_Client::SendServer():" << e.what() << std::endl;
 		return sendDataSize;
 	}
@@ -89,7 +89,7 @@ void TCP_Client::DataProcessing()
 				}
 
 			}
-			catch (std::exception e) {
+			catch (const std::exception& e) {
 				std::cerr << "Exception Error at TCP_Routine::Update():" << e.what() << std::endl;
 
 				//TODO:不正パケットなどで先頭データがintでmemcpyできなかった際はパケットをすべて削除しているが何かいい手がないか考える

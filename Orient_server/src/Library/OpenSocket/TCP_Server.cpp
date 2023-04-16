@@ -21,27 +21,30 @@ std::shared_ptr<TCP_Server> TCP_Server::GetInstance(const std::string _addrs, co
 
 void TCP_Server::Update()
 {
-	std::shared_ptr<BaseSocket> client = nullptr;
-	client = m_socket->Accept();
-	if (client != nullptr) {
-		clientList.push_back(client);
-		std::vector<char> recvDataList;
-
-		//既存ソケットの有無確認
-		auto ite = recvDataMap.find(client->GetSocket());
-		if (ite != recvDataMap.end()) recvDataMap.erase(ite);
-
-		//クライアント作成
-		recvDataMap.insert({ client->GetSocket(),recvDataList });
-
+	//ファイルディスクリプタが設定されていない場合
+	if (fds == nullptr) {
+		AcceptProcessing();
+		if (clientList.size() > 0) DataProcessing();
+		return;
 	}
 
+	//ファイルディスクリプタが設定されている場合
+	if (FD_ISSET(m_socket->GetSocket(), fds)) AcceptProcessing();
 	if (clientList.size() > 0) DataProcessing();
 }
 
 int TCP_Server::GetRecvDataSize()
 {
 	return recvDataQueList.size();
+}
+
+void TCP_Server::GetFileDescriptor(fd_set* _fds)
+{
+	BaseServer::GetFileDescriptor(_fds);
+
+	for (int i = 0; i < clientList.size(); i++) {
+		FD_SET(clientList.at(i)->GetSocket(), _fds);
+	}
 }
 
 int TCP_Server::SendOnlyClient(const int _socket, const char* _buf, const int _bufSize)
@@ -61,7 +64,7 @@ int TCP_Server::SendOnlyClient(const int _socket, const char* _buf, const int _b
 			if (clients->GetSocket() == _socket)sendDataSize = clients->Send(sendBuf, _bufSize + TCP_HEADERSIZE + ENDMARKERSIZE);
 		}
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at TCP_Server::SendOnlyClient():" << e.what() << std::endl;
 		return sendDataSize;
 	}
@@ -86,7 +89,7 @@ int TCP_Server::SendAllClient(const char* _buf, const int _bufSize)
 			sendDataSize = clients->Send(sendBuf, _bufSize + TCP_HEADERSIZE + ENDMARKERSIZE);
 		}
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at TCP_Server::SendAllClient():" << e.what() << std::endl;
 		return sendDataSize;
 	}
@@ -94,13 +97,36 @@ int TCP_Server::SendAllClient(const char* _buf, const int _bufSize)
 	return sendDataSize;
 }
 
+void TCP_Server::AcceptProcessing()
+{
+	std::shared_ptr<BaseSocket> client = nullptr;
+	client = m_socket->Accept();
+	if (client != nullptr) {
+		clientList.push_back(client);
+		std::vector<char> recvDataList;
+
+		//既存ソケットの有無確認
+		auto ite = recvDataMap.find(client->GetSocket());
+		if (ite != recvDataMap.end()) recvDataMap.erase(ite);
+
+		//クライアント作成
+		recvDataMap.insert({ client->GetSocket(),recvDataList });
+	}
+}
+
 void TCP_Server::DataProcessing()
 {
-	std::list<int> deleteList;
+	//clietnListのindex,socket番号の順で値を格納
+	std::list<std::pair<std::shared_ptr<BaseSocket>, int>> deleteList;
 
 	for (int i = 0; i < clientList.size(); i++) {
 		char buf[TCP_BUFFERSIZE];
 		int socket = clientList.at(i)->GetSocket();
+
+		//fdsがセットされておりsocketにイベントが発生しているか確認し、発生していなければスキップ
+		if (fds) {
+			if (!FD_ISSET(socket, fds)) continue;
+		}
 
 		//データを受信した際はそのバイト数が入り切断された場合は0,ノンブロッキングモードでデータを受信してない間は-1がdataSizeに入る
 		int dataSize = clientList.at(i)->Recv(buf, TCP_BUFFERSIZE);
@@ -132,15 +158,15 @@ void TCP_Server::DataProcessing()
 						return;
 					}
 				}
-				catch (std::exception e) {
-					std::cerr << "Exception Error at TCP_Routine::Update():" << e.what() << std::endl;
+				catch (const std::exception& e) {
+					std::cerr << "Exception Error at TCP_Server::DataProcessing:" << e.what() << std::endl;
 
 					//TODO:不正パケットなどで先頭データがintでmemcpyできなかった際はパケットをすべて削除しているが何かいい手がないか考える
 					recvDataMap[(B_SOCKET)socket].clear();
 					return;
 				}
 
-				//受信データが一塊分あればキューリストに追加
+				//受信データが一塊分あればレシーブキューに追加
 				if (recvDataMap[socket].size() > dataSize) {
 					std::pair<B_SOCKET, std::vector<char>> addData;
 					addData.first = socket;
@@ -155,7 +181,7 @@ void TCP_Server::DataProcessing()
 		else if (dataSize == 0) {
 			//接続を終了するとき
 			std::cout << "connection is lost" << std::endl;
-			deleteList.push_back(i);
+			deleteList.push_back(std::make_pair(clientList.at(i),socket));
 		}
 #ifdef _MSC_VER
 		else if (WSAGetLastError() == WSAEWOULDBLOCK) {
@@ -167,7 +193,7 @@ void TCP_Server::DataProcessing()
 
 			//接続エラーが起こった時
 			std::cerr << "recv failed:" << WSAGetLastError() << std::endl;
-			deleteList.push_back(i);
+			deleteList.push_back(std::make_pair(clientList.at(i), socket));
 #else
 			//errnoはシステムコールや標準ライブラリのエラーが格納される変数
 			if (errno == EAGAIN)
@@ -183,31 +209,29 @@ void TCP_Server::DataProcessing()
 			{
 				//クライアント接続リセット
 				std::cout << "connection is lost" << std::endl;
-				deleteList.push_back(i);
+				deleteList.push_back(std::make_pair(clientList.at(i), socket));
 				break;
 			}
 			//接続エラーが起こった時
 			std::cerr << "recv failed:" << errno << std::endl;
-			deleteList.push_back(i);
+			deleteList.push_back(std::make_pair(clientList.at(i), socket));
 #endif
 
 		}
 	}
 
-	//切断されたソケット処理
-	for (auto element : deleteList) {
-		//受信データ削除
-		int socket = clientList.at(element)->GetSocket();
+	try {
+		for (auto element : deleteList) {
+			//受信データ用配列の初期化
+			recvDataMap[element.second].erase(recvDataMap[element.second].begin(), recvDataMap[element.second].end());
+			//クライアントリストから削除
+			auto it = std::remove(clientList.begin(), clientList.end(), element.first);
+			clientList.erase(it, clientList.end());
 
-#ifdef _MSC_VER
-		recvDataMap[socket].erase(recvDataMap[socket].begin(), recvDataMap[socket].end());
-#else
-		recvDataMap.erase(socket);
-#endif
-
-		//ソケット削除
-		clientList.erase(clientList.begin() + element);
-
+		}
+	}
+	catch (const std::exception& e) {
+		std::cerr << "Exception Error at TCP_Server::DataProcessing.delete:" << e.what() << std::endl;
 	}
 
 

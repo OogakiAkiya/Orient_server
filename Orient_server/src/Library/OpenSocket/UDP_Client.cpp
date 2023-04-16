@@ -48,7 +48,7 @@ int UDP_Client::SendServer(const char* _buf, const int _bufSize)
 		sequence++;
 		if (sequence > SEQUENCEMAX) { sequence = 0; }
 	}
-	catch (std::exception e) {
+	catch (const std::exception& e) {
 		std::cerr << "Exception Error at TCP_Client::SendServer():" << e.what() << std::endl;
 		return sendDataSize;
 	}
