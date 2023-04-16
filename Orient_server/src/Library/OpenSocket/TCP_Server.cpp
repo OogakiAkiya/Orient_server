@@ -38,13 +38,15 @@ int TCP_Server::GetRecvDataSize()
 	return recvDataQueList.size();
 }
 
-void TCP_Server::GetFileDescriptor(fd_set* _fds)
+int TCP_Server::GetFileDescriptor(fd_set* _fds)
 {
-	BaseServer::GetFileDescriptor(_fds);
-
+	int maxfds = BaseServer::GetFileDescriptor(_fds);
 	for (int i = 0; i < clientList.size(); i++) {
-		FD_SET(clientList.at(i)->GetSocket(), _fds);
+		int socket = clientList.at(i)->GetSocket();
+		FD_SET(socket, _fds);
+		if (socket > maxfds) maxfds = socket;
 	}
+	return maxfds;
 }
 
 int TCP_Server::SendOnlyClient(const int _socket, const char* _buf, const int _bufSize)

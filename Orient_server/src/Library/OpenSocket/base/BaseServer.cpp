@@ -3,9 +3,10 @@
 #include"BaseSocket.h"
 #include"BaseServer.h"
 
-void BaseServer::GetFileDescriptor(fd_set* _fds)
+int BaseServer::GetFileDescriptor(fd_set* _fds)
 {
 	FD_SET(m_socket->GetSocket(), _fds);
+	return m_socket->GetSocket();
 }
 
 void BaseServer::SetFileDescriptorPointer(fd_set* _fds)

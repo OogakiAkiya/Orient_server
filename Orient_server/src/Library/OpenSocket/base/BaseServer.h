@@ -6,7 +6,7 @@ public:
 	virtual ~BaseServer() { m_socket->Close(); }
 	virtual void Update() {};
 	virtual int GetRecvDataSize() = 0;								      //クライアントから受信したデータがいくつあるか
-	virtual void GetFileDescriptor(fd_set* _fds);
+	virtual int GetFileDescriptor(fd_set* _fds);
 	void SetFileDescriptorPointer(fd_set* _fds);
 protected:
 	static void SwitchIpv(std::shared_ptr<BaseSocket> _socket, int _ipv); //IPvの設定

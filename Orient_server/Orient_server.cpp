@@ -61,16 +61,16 @@ int main()
 	}
 	*/
 	fd_set readfds;
-	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, true);
+	auto tcpServer = TCP_Server::GetInstance("0.0.0.0", "17600", IPV4, false);
 	//auto udpServer = UDP_Server::GetInstance("0.0.0.0", "17700", IPV4, false);
 
 	while (1) {
 		FD_ZERO(&readfds);
-		tcpServer->GetFileDescriptor(&readfds);
+		int maxfds= tcpServer->GetFileDescriptor(&readfds);
 		//udpServer->GetFileDescriptor(&readfds);
 
 		//ソケットの設定で非同期設定を有効にしていない場合ここでブロッキングされる(readfdsを渡しているがここはクラス側へsetするなどして階層的にデータを渡さなくても良いようにしたい)
-		OpenSocket_Select(&readfds);
+		OpenSocket_Select(&readfds,maxfds);
 
 		tcpServer->SetFileDescriptorPointer(&readfds);
 		TcpUpdate(tcpServer);
