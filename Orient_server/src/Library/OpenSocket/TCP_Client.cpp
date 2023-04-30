@@ -59,6 +59,14 @@ int TCP_Client::SendServer(const char* _buf, const int _bufSize)
 
 void TCP_Client::DataProcessing()
 {
+	//ファイルディスクリプタが設定されておりビットフラグが立っていない場合抜けるようにする
+	if (fds != nullptr) {
+		if (!FD_ISSET(m_socket->GetSocket(), fds)) {
+			return;
+		}
+	}
+
+
 	char buf[TCP_BUFFERSIZE];
 	int dataSize = m_socket->Recv(buf, TCP_BUFFERSIZE);
 

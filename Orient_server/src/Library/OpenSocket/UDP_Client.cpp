@@ -14,7 +14,6 @@ std::shared_ptr<BaseClient> UDP_Client::GetInstance(const std::string _addrs, co
 	std::shared_ptr<UDP_Client> temp = std::make_shared<UDP_Client>();
 
 	temp->m_socket = std::make_shared<BaseSocket>();
-
 	temp->m_socket->Init(_addrs, _port);						//IPアドレスとポート番号の設定
 	SwitchIpv(temp->m_socket, _ipv);							//IPvの設定
 	temp->m_socket->SetProtocol_UDP();							//TCP通信に設定
@@ -57,6 +56,13 @@ int UDP_Client::SendServer(const char* _buf, const int _bufSize)
 
 void UDP_Client::DataProcessing()
 {
+	//ファイルディスクリプタが設定されておりビットフラグが立っていない場合抜けるようにする
+	if (fds != nullptr) {
+		if (!FD_ISSET(m_socket->GetSocket(), fds)) {
+			return;
+		}
+	}
+
 	std::pair<B_ADDRESS_IN, std::vector<char>> addData;
 	char buf[TCP_BUFFERSIZE];
 

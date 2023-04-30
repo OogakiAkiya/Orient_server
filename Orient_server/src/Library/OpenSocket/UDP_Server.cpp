@@ -83,15 +83,15 @@ int UDP_Server::SendMultiClient(const std::vector<B_ADDRESS_IN> _addrList, const
 
 void UDP_Server::DataProcessing()
 {
-	std::pair<B_ADDRESS_IN, std::vector<char>> addData;
-	char buf[TCP_BUFFERSIZE];
-
 	//ファイルディスクリプタが設定されておりビットフラグが立っていない場合抜けるようにする
 	if (fds != nullptr) {
 		if (!FD_ISSET(m_socket->GetSocket(), fds)) {
 			return;
 		}
 	}
+
+	std::pair<B_ADDRESS_IN, std::vector<char>> addData;
+	char buf[TCP_BUFFERSIZE];
 
 	//受信処理
 	int dataSize = m_socket->Recvfrom(&addData.first, &buf[0], TCP_BUFFERSIZE, 0);

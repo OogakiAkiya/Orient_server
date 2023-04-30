@@ -48,7 +48,6 @@ void UdpUpdate(const shared_ptr<UDP_Server> _server) {
 	}
 }
 
-
 int main()
 {	
 #ifdef _MSC_VER
@@ -71,8 +70,7 @@ int main()
 	while (1) {
 		FD_ZERO(&readfds);
 		int maxfds = std::max(tcpServer->GetFileDescriptor(&readfds),udpServer->GetFileDescriptor(&readfds));
-		//int maxfds = udpServer->GetFileDescriptor(&readfds);
-		//ソケットの設定で非同期設定を有効にしていない場合ここでブロッキングされる(readfdsを渡しているがここはクラス側へsetするなどして階層的にデータを渡さなくても良いようにしたい)
+		//ソケットの設定で非同期設定を有効にしていない場合ここでブロッキングされる
 		OpenSocket_Select(&readfds,maxfds);
 
 		tcpServer->SetFileDescriptorPointer(&readfds);
